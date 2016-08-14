@@ -8,14 +8,17 @@ It's based on a Ununtu 14.04
 
 Pull if from the repository
 ```
-docker pull codingtony/impala
+docker pull luiggino/impala
 ```
 
 Or build the image using the Dockerfile in this repository
 ```
-git clone https://github.com/codingtony/docker-impala.git
+git clone https://github.com/luiggino/docker-impala.git
 cd docker-impala
-docker build -t codingtony/impala .
+cd centos
+docker build --rm -t local/centos7 .
+cd ..
+docker build -t luiggino/impala .
 ```
 The image is quite big (1.5GB). It might take a while to download the first time.
 
@@ -79,7 +82,7 @@ Then you should be able to point your browser to [http://localhost:25000](http:/
 
 
 
-## Create a named container called "impala" 
+## Create a named container called "impala"
 It will run as a daemon, exposing the ports
 ```
 docker run -d --name "impala" -p 9000:9000 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 21000:21000 -p 21050:21050 -p 25000:25000 -p 25010:25010 -p 25020:25020 codingtony/impala
@@ -174,7 +177,7 @@ Found 1 items
 
 ### Using a local volume
 
-You mount a filesystem from the host and you make it available in the container using -v. 
+You mount a filesystem from the host and you make it available in the container using -v.
 
 Here's how it works :
 ```
@@ -182,7 +185,3 @@ Here's how it works :
 touch /tmp/IMPALA.txt
 docker run --rm  --link impala:impala-server -v /tmp/:/work:ro codingtony/impala hdp impala-server hadoop fs -put /work/IMPALA.txt /tmp/IMPALA_USING_VOLUME.txt
 ```
-
-
-
-

@@ -7,5 +7,5 @@
 <property>
    <name>dfs.client.read.shortcircuit</name>
    <value>true</value>
-  </property>       
+  </property>
 </configuration>
